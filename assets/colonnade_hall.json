@@ -1,0 +1,28 @@
+{
+ "ColonnadeHall": {
+  "gaze": [
+   {
+    "x": 0,
+    "z": 12.0,
+    "y": 11.21,
+    "r": 26
+   },
+   {
+    "x": 0,
+    "z": -12.0,
+    "y": 11.21,
+    "r": 26
+   }
+  ],
+  "walk": {
+   "file": "colonnade_hall.ColonnadeHall.walk.bin",
+   "x0": -12.811640739440918,
+   "z0": -28.013031005859375,
+   "res": 0.3,
+   "nx": 86,
+   "nz": 187,
+   "layers": 4
+  },
+  "lod": "ColonnadeHall_lod"
+ }
+}

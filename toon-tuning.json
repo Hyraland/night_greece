@@ -1,0 +1,79 @@
+{
+  "palette": {
+    "linked": false,
+    "shade": "#8ca4ca",
+    "lit": "#f3f6f2",
+    "range": [
+      "#8cc3ca",
+      "#8cc0cc",
+      "#8cafca",
+      "#8caaca",
+      "#8c96ca"
+    ],
+    "start": "#8cacca"
+  },
+  "moon": {
+    "elevation": 19.5,
+    "azimuth": 180
+  },
+  "stone": {
+    "lit": "#f3f6f2",
+    "shade": "#8ca4ca",
+    "deep": "#677cb0",
+    "ao": 0.6
+  },
+  "bark": {
+    "lit": "#d9e3df",
+    "shade": "#6f83ad",
+    "deep": "#506191",
+    "ao": 0.5
+  },
+  "leaves": {
+    "lit": "#e2eee4",
+    "shade": "#738fae",
+    "deep": "#506991",
+    "ao": 0.25
+  },
+  "ground": {
+    "lit": "#e8eee6",
+    "shade": "#93aac7",
+    "deep": "#7a92b9",
+    "ao": 0
+  },
+  "edge": {
+    "at": 0.09,
+    "softness": 0.055
+  },
+  "sky": {
+    "zenith": "#3f538d",
+    "horizon": "#a6b9d6",
+    "stars": 1,
+    "moonGlow": 1
+  },
+  "water": {
+    "color": "#6e87b7",
+    "far": "#a0b4d3",
+    "reflect": 0.75,
+    "threshold": 0.7,
+    "glint": 1,
+    "ripples": 1.63,
+    "sparkle": 1.06,
+    "flow": 2.25
+  },
+  "outline": {
+    "on": true,
+    "color": "#4e6092",
+    "strength": 0.7,
+    "depth": 0.012
+  },
+  "fog": {
+    "density": 0.0022
+  },
+  "falling": {
+    "on": true,
+    "amount": 0.68,
+    "size": 1,
+    "speed": 0.86,
+    "wind": 2.07
+  }
+}

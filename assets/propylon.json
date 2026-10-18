@@ -1,0 +1,22 @@
+{
+ "Propylon": {
+  "gaze": [
+   {
+    "x": 0,
+    "z": 8.6,
+    "y": 15.162784,
+    "r": 40
+   }
+  ],
+  "walk": {
+   "file": "propylon.Propylon.walk.bin",
+   "x0": -17.262893676757812,
+   "z0": -16.89112663269043,
+   "res": 0.3,
+   "nx": 118,
+   "nz": 120,
+   "layers": 4
+  },
+  "lod": "Propylon_lod"
+ }
+}

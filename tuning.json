@@ -1,0 +1,45 @@
+{
+  "moon": {
+    "elevation": 19.5,
+    "azimuth": 163.3,
+    "intensity": 2.6,
+    "color": "#eaf1ff"
+  },
+  "sky": {
+    "color": "#6f8ece",
+    "ground": "#303f5d",
+    "intensity": 1.6
+  },
+  "fog": {
+    "density": 0.0032,
+    "color": "#394e76"
+  },
+  "air": {
+    "density": 0.0014,
+    "color": "#3e5687",
+    "glowColor": "#7f97cc",
+    "glow": 0.71,
+    "mist": 0.011,
+    "mistHeight": 1.4,
+    "mistColor": "#6880b0"
+  },
+  "temples": {
+    "color": "#e9e6de",
+    "roughness": 0.72,
+    "litTint": "#ffffff",
+    "shadeTint": "#ffffff",
+    "ao": 1,
+    "grime": 1,
+    "veins": 1,
+    "relief": 1,
+    "wet": 1
+  },
+  "post": {
+    "exposure": 1,
+    "bloom": 0.42,
+    "bloomRadius": 0.55,
+    "bloomThreshold": 1,
+    "vignette": 0.45,
+    "grade": 0.5
+  }
+}

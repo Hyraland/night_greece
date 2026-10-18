@@ -1,0 +1,22 @@
+{
+ "GiantBase": {
+  "gaze": [
+   {
+    "x": 0,
+    "z": 0,
+    "y": 4.5,
+    "r": 30
+   }
+  ],
+  "walk": {
+   "file": "colossal_statues.GiantBase.walk.bin",
+   "x0": -9.491619110107422,
+   "z0": -12.717659950256348,
+   "res": 0.3,
+   "nx": 84,
+   "nz": 80,
+   "layers": 4
+  },
+  "lod": "GiantBase_lod"
+ }
+}

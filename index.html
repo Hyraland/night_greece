@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>在夜晚的群星下</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Noto+Serif+SC:wght@300;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #dfe8ff;
+      --dim: rgba(205, 220, 255, 0.62);
+      --night: #030816;
+    }
+    html, body { margin: 0; height: 100%; background: var(--night); overflow: hidden; color: var(--ink); }
+    canvas { display: block; touch-action: none; cursor: grab; }
+    canvas:active { cursor: grabbing; }
+
+    #intro {
+      position: fixed; inset: 0; display: grid; place-items: center; text-align: center;
+      background: radial-gradient(ellipse at 50% 60%, rgba(10, 24, 60, 0.35), rgba(3, 8, 22, 0.92) 70%);
+      transition: opacity 2.4s ease, visibility 2.4s;
+      font-family: 'Noto Serif SC', serif; user-select: none;
+    }
+    #intro.gone { opacity: 0; visibility: hidden; }
+    #intro h1 { font-weight: 300; font-size: clamp(30px, 6vw, 58px); letter-spacing: 0.5em; margin: 0 0 0 0.5em; text-shadow: 0 0 30px rgba(150, 180, 255, 0.5); }
+    #intro .en { font-family: 'Cormorant Garamond', serif; font-style: italic; letter-spacing: 0.3em; color: var(--dim); margin-top: 14px; font-size: 15px; }
+    #intro .go { margin-top: 48px; font-size: 14px; letter-spacing: 0.4em; color: var(--dim); opacity: 0; transition: opacity 1.2s; }
+    #intro.ready { cursor: pointer; }
+    #intro.ready .go { opacity: 1; animation: breathe 3.6s ease-in-out infinite; }
+    #status { margin-top: 48px; font-size: 13px; letter-spacing: 0.3em; color: var(--dim); min-height: 1em; }
+    #intro.ready #status { display: none; }
+    @keyframes breathe { 50% { opacity: 0.35; } }
+
+    #hint, #mode {
+      position: fixed; left: 24px; font-family: 'Noto Serif SC', serif; font-size: 12px; letter-spacing: 0.2em;
+      color: var(--dim); pointer-events: none; text-shadow: 0 0 8px rgba(0, 0, 20, 0.8);
+    }
+    #hint { bottom: 48px; opacity: 0; transition: opacity 2s; line-height: 2; }
+    #hint.show { opacity: 1; }
+    #mode { bottom: 22px; opacity: 0.55; }
+    #sound {
+      position: fixed; right: 24px; bottom: 18px; font: 13px 'Noto Serif SC', serif; letter-spacing: 0.15em;
+      color: var(--dim); background: none; border: 1px solid rgba(205, 220, 255, 0.25); border-radius: 999px;
+      padding: 5px 12px; cursor: pointer; opacity: 0.6; transition: opacity 0.4s;
+    }
+    #sound:hover, #sound:focus-visible { opacity: 1; }
+    @media (max-width: 600px) { #sound { right: 16px; } }
+    @media (max-width: 600px) { #hint, #mode { left: 16px; } }
+  </style>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="intro">
+    <div>
+      <h1>在夜晚的群星下</h1>
+      <div class="en">a walk among moonlit temples</div>
+      <div id="status">正在醒来…</div>
+      <div class="go">轻触以进入</div>
+    </div>
+  </div>
+  <div id="hint">拖动画面 环顾四周<br />W A S D 行走 · 双击 W 并按住奔跑（或按住 Shift，R 切换常跑）<br />空格 在自动漫步与自由行走间切换<br />M 开关声音</div>
+  <div id="mode">自动漫步中 · 空格切换</div>
+  <button id="sound" type="button" title="声音（M）">♪</button>
+  <script>
+    // If loading fails (often a stale cached script after an update), say so instead of hanging.
+    const showLoadError = (msg) => {
+      const s = document.getElementById('status');
+      if (s && !document.getElementById('intro').classList.contains('ready')) {
+        s.textContent = '加载出错，请强制刷新（Cmd+Shift+R）· ' + msg;
+      }
+    };
+    addEventListener('error', (e) => showLoadError(e.message || '脚本错误'));
+    addEventListener('unhandledrejection', (e) => showLoadError(String(e.reason?.message || e.reason)));
+  </script>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

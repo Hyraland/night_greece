@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>在夜晚的群星下 · 二分光影</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Noto+Serif+SC:wght@300;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #f4f8f6;
+      --dim: rgba(236, 246, 248, 0.78);
+      --night: #3e6f8e;
+    }
+    html, body { margin: 0; height: 100%; background: var(--night); overflow: hidden; color: var(--ink); }
+    canvas { display: block; touch-action: none; cursor: grab; }
+    canvas:active { cursor: grabbing; }
+
+    #intro {
+      position: fixed; inset: 0; display: grid; place-items: center; text-align: center;
+      background: radial-gradient(ellipse at 50% 60%, rgba(140, 192, 204, 0.55), rgba(62, 111, 142, 0.96) 70%);
+      transition: opacity 2.4s ease, visibility 2.4s;
+      font-family: 'Noto Serif SC', serif; user-select: none;
+    }
+    #intro.gone { opacity: 0; visibility: hidden; }
+    #intro h1 { font-weight: 300; font-size: clamp(30px, 6vw, 58px); letter-spacing: 0.5em; margin: 0 0 0 0.5em; text-shadow: 0 0 24px rgba(255, 255, 255, 0.35); }
+    #intro .en { font-family: 'Cormorant Garamond', serif; font-style: italic; letter-spacing: 0.3em; color: var(--dim); margin-top: 14px; font-size: 15px; }
+    #intro .go { margin-top: 48px; font-size: 14px; letter-spacing: 0.4em; color: var(--dim); opacity: 0; transition: opacity 1.2s; }
+    #intro.ready { cursor: pointer; }
+    #intro.ready .go { opacity: 1; animation: breathe 3.6s ease-in-out infinite; }
+    #status { margin-top: 48px; font-size: 13px; letter-spacing: 0.3em; color: var(--dim); min-height: 1em; }
+    #intro.ready #status { display: none; }
+    @keyframes breathe { 50% { opacity: 0.35; } }
+
+    #hint, #mode {
+      position: fixed; left: 24px; font-family: 'Noto Serif SC', serif; font-size: 12px; letter-spacing: 0.2em;
+      color: var(--dim); pointer-events: none; text-shadow: 0 0 6px rgba(40, 80, 100, 0.8);
+    }
+    #hint { bottom: 48px; opacity: 0; transition: opacity 2s; line-height: 2; }
+    #hint.show { opacity: 1; }
+    #mode { bottom: 22px; opacity: 0.55; }
+    #chips { position: fixed; right: 24px; bottom: 18px; display: flex; gap: 8px; }
+    #chips button {
+      font: 13px 'Noto Serif SC', serif; letter-spacing: 0.15em;
+      color: var(--dim); background: none; border: 1px solid rgba(236, 246, 248, 0.35); border-radius: 999px;
+      padding: 5px 12px; cursor: pointer; opacity: 0.7; transition: opacity 0.4s;
+    }
+    #chips button:hover, #chips button:focus-visible, #chips button[aria-expanded="true"] { opacity: 1; }
+    #look-panel {
+      position: fixed; right: 24px; bottom: 58px; width: 230px; padding: 14px 16px 6px;
+      border: 1px solid rgba(236, 246, 248, 0.3); border-radius: 14px;
+      background: rgba(48, 74, 110, 0.32); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      font: 12px 'Noto Serif SC', serif; letter-spacing: 0.2em; color: var(--dim);
+    }
+    #look-panel[hidden] { display: none; }
+    #look-panel label { display: block; margin-bottom: 12px; }
+    #look-panel input[type=range] {
+      -webkit-appearance: none; appearance: none; display: block; width: 100%; height: 6px; margin: 9px 0 0;
+      border-radius: 3px; background: rgba(236, 246, 248, 0.3); outline: none; cursor: pointer;
+    }
+    #look-panel input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+      background: #f3f6f2; border: none; box-shadow: 0 0 6px rgba(20, 40, 70, 0.5);
+    }
+    #look-panel input[type=range]::-moz-range-thumb {
+      width: 14px; height: 14px; border-radius: 50%; background: #f3f6f2; border: none; box-shadow: 0 0 6px rgba(20, 40, 70, 0.5);
+    }
+    @media (max-width: 600px) { #chips, #look-panel { right: 16px; } }
+    @media (max-width: 600px) { #hint, #mode { left: 16px; } }
+  </style>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="intro">
+    <div>
+      <h1>在夜晚的群星下</h1>
+      <div class="en">a walk among moonlit temples · in two tones</div>
+      <div id="status">正在醒来…</div>
+      <div class="go">轻触以进入</div>
+    </div>
+  </div>
+  <div id="hint">拖动画面 环顾四周<br />W A S D 行走 · 双击 W 并按住奔跑（或按住 Shift，R 切换常跑）<br />空格 在自动漫步与自由行走间切换<br />M 开关声音 · P 落叶</div>
+  <div id="mode">自动漫步中 · 空格切换</div>
+  <div id="look-panel" hidden>
+    <label>色调<input id="hue" type="range" min="0" max="1" step="0.001" aria-label="色调，从青到蓝" /></label>
+    <label>月亮方位<input id="moon-az" type="range" min="0" max="360" step="1" aria-label="月亮方位（度）" /></label>
+  </div>
+  <div id="chips">
+    <button id="look" type="button" title="色调与月亮方位" aria-expanded="false">色调 · 月亮</button>
+    <button id="falling" type="button" title="月桂落叶（P）">落叶</button>
+    <button id="sound" type="button" title="声音（M）">♪</button>
+  </div>
+  <script>
+    // If loading fails (often a stale cached script after an update), say so instead of hanging.
+    const showLoadError = (msg) => {
+      const s = document.getElementById('status');
+      if (s && !document.getElementById('intro').classList.contains('ready')) {
+        s.textContent = '加载出错，请强制刷新（Cmd+Shift+R）· ' + msg;
+      }
+    };
+    addEventListener('error', (e) => showLoadError(e.message || '脚本错误'));
+    addEventListener('unhandledrejection', (e) => showLoadError(String(e.reason?.message || e.reason)));
+  </script>
+  <script type="module" src="./src/toon/main.js"></script>
+</body>
+</html>

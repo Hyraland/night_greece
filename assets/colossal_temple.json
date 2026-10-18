@@ -1,0 +1,22 @@
+{
+ "ColossalTemple": {
+  "gaze": [
+   {
+    "x": -3.299999999999998,
+    "z": 9.0,
+    "y": 23.3775,
+    "r": 46
+   }
+  ],
+  "walk": {
+   "file": "colossal_temple.ColossalTemple.walk.bin",
+   "x0": -32.49081039428711,
+   "z0": -40.111724853515625,
+   "res": 0.3,
+   "nx": 216,
+   "nz": 202,
+   "layers": 4
+  },
+  "lod": "ColossalTemple_lod"
+ }
+}

@@ -1,0 +1,129 @@
+{
+ "trees": [
+  {
+   "kind": "olive",
+   "bark": "Olive0_bark",
+   "leaves": "Olive0_leaves",
+   "height": 4.9,
+   "radius": 2.25,
+   "trunk": 0.5,
+   "cards": 605
+  },
+  {
+   "kind": "olive",
+   "bark": "Olive1_bark",
+   "leaves": "Olive1_leaves",
+   "height": 4.83,
+   "radius": 2.02,
+   "trunk": 0.5,
+   "cards": 417
+  },
+  {
+   "kind": "olive",
+   "bark": "Olive2_bark",
+   "leaves": "Olive2_leaves",
+   "height": 4.61,
+   "radius": 2.22,
+   "trunk": 0.5,
+   "cards": 545
+  },
+  {
+   "kind": "olive",
+   "bark": "Olive3_bark",
+   "leaves": "Olive3_leaves",
+   "height": 4.1,
+   "radius": 3.41,
+   "trunk": 0.76,
+   "cards": 908
+  },
+  {
+   "kind": "laurel",
+   "bark": "Laurel0_bark",
+   "leaves": "Laurel0_leaves",
+   "height": 7.39,
+   "radius": 1.67,
+   "trunk": 0.45,
+   "cards": 618
+  },
+  {
+   "kind": "laurel",
+   "bark": "Laurel1_bark",
+   "leaves": "Laurel1_leaves",
+   "height": 6.7,
+   "radius": 1.79,
+   "trunk": 0.45,
+   "cards": 636
+  },
+  {
+   "kind": "laurel",
+   "bark": "Laurel2_bark",
+   "leaves": "Laurel2_leaves",
+   "height": 6.93,
+   "radius": 1.77,
+   "trunk": 0.45,
+   "cards": 839
+  },
+  {
+   "kind": "giant",
+   "bark": "GiantLaurel_bark",
+   "leaves": "GiantLaurel_leaves",
+   "height": 19.28,
+   "radius": 13.61,
+   "trunk": 2.4,
+   "cards": 11215
+  }
+ ],
+ "gentians": [
+  {
+   "node": "Gentian400"
+  },
+  {
+   "node": "Gentian401"
+  },
+  {
+   "node": "Gentian402"
+  },
+  {
+   "node": "Gentian403"
+  },
+  {
+   "node": "Gentian404"
+  },
+  {
+   "node": "Gentian405"
+  }
+ ],
+ "asphodel": [
+  {
+   "node": "Asphodel600"
+  },
+  {
+   "node": "Asphodel601"
+  },
+  {
+   "node": "Asphodel602"
+  }
+ ],
+ "acanthus": [
+  {
+   "node": "Acanthus700"
+  },
+  {
+   "node": "Acanthus701"
+  },
+  {
+   "node": "Acanthus702"
+  }
+ ],
+ "daffodils": [
+  {
+   "node": "SeaDaffodil800"
+  },
+  {
+   "node": "SeaDaffodil801"
+  },
+  {
+   "node": "SeaDaffodil802"
+  }
+ ]
+}
