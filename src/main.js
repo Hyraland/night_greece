@@ -206,7 +206,7 @@ showSound();
 
 const walker = new Walker(camera, renderer.domElement, {
   onStep: (x, z, ground) => { if (ground < -0.03) water.addRipple(x, z, 1.0, shared.uTime.value); },
-  onModeChange: (mode) => { ui.mode.textContent = mode === 'auto' ? '自动漫步中 · 空格切换' : '自由行走 · 空格回到漫步'; },
+  onModeChange: (mode) => { ui.mode.textContent = mode === 'auto' ? '自动漫步中 · 空格切换' : '双击 W 切换跑 / 走 · 空格回到漫步'; },
 });
 if (params.has('s')) walker.s = parseFloat(params.get('s'));
 

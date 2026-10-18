@@ -1,5 +1,6 @@
 // First-person stroll. By default the camera wanders the loop on its own; drag to look around,
-// WASD / arrow keys to walk freely, Space to hand control back to the stroll.
+// WASD / arrow keys to move freely (running; a double tap on forward switches between running and walking,
+// Shift held is the other one for a moment), Space to hand control back to the stroll.
 
 import * as THREE from 'three';
 import { PATH_POINTS, makeRoute, groundAt, heightAt, colliders, gaze, STEP_UP, CENTER, WORLD_RADIUS } from './world.js';
@@ -40,8 +41,7 @@ export class Walker {
     this.vel = new THREE.Vector2();  // free walking: current velocity, eased toward what the keys ask for
     this.speedNow = 0;               // current ground speed
     this.runAmt = 0;                 // 0 walking .. 1 running, eased
-    this.runLock = false;            // R: keep running without holding Shift
-    this.dashing = false;            // forward key tapped twice and held: running
+    this.walking = false;            // moving freely one runs, unless forward was double-tapped to walk
     this.forwardDownAt = -1;
     this.phase = 0;                  // steps taken; each whole number is a footfall
     this.keys = new Set();
@@ -68,22 +68,24 @@ export class Walker {
     addEventListener('keydown', (e) => {
       if (e.code === 'Space') { e.preventDefault(); this.setMode(this.mode === 'auto' ? 'free' : 'auto'); return; }
       const move = ['KeyW', 'KeyA', 'KeyS', 'KeyD', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
-      // forward pressed twice in quick succession, and held: run
+      // forward pressed twice in quick succession: switch between running and walking
       if ((e.code === 'KeyW' || e.code === 'ArrowUp') && !e.repeat) {
         const now = performance.now();
-        this.dashing = now - this.forwardDownAt < 350;
-        this.forwardDownAt = now;
+        if (now - this.forwardDownAt < 350) {
+          this.walking = !this.walking;
+          this.forwardDownAt = -1; // a third tap starts a new pair
+        } else {
+          this.forwardDownAt = now;
+        }
       }
       if (move.includes(e.code)) { e.preventDefault(); this.keys.add(e.code); if (this.mode === 'auto') this.setMode('free'); }
       if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') this.keys.add('Shift');
-      if (e.code === 'KeyR' && !e.repeat) this.runLock = !this.runLock;
     });
     addEventListener('keyup', (e) => {
       this.keys.delete(e.code);
-      if ((e.code === 'KeyW' || e.code === 'ArrowUp') && !this.keys.has('KeyW') && !this.keys.has('ArrowUp')) this.dashing = false;
       if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') this.keys.delete('Shift');
     });
-    addEventListener('blur', () => { this.keys.clear(); this.dashing = false; });
+    addEventListener('blur', () => this.keys.clear());
   }
 
   setMode(mode) {
@@ -162,8 +164,10 @@ export class Walker {
     return (higher(0.45, 0) && higher(-0.45, 0)) || (higher(0, 0.45) && higher(0, -0.45));
   }
 
+  // the stroll walks (Shift held, it runs); moving freely one runs or walks as chosen, Shift held the other
   get running() {
-    return this.dashing || this.keys.has('Shift') !== this.runLock;
+    if (this.mode === 'auto') return this.keys.has('Shift');
+    return this.walking === this.keys.has('Shift');
   }
 
   update(dt) {
